@@ -59,10 +59,16 @@ renderGrid();
 let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000000); // Set the background color to black
 
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+// Setup for OrthographicCamera
+let aspectRatio = window.innerWidth / window.innerHeight;
+let camera = new THREE.OrthographicCamera(-gridSize * aspectRatio / 2, gridSize * aspectRatio / 2, gridSize / 2, -gridSize / 2, 1, 100);
+camera.position.set(0, 50, 0); // Position the camera above the grid for a top-down view
+camera.lookAt(scene.position); // Camera looks at the center of the grid
+
 let renderer = new THREE.WebGLRenderer({ alpha: true }); // Alpha set to true for a transparent background
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('three-container').appendChild(renderer.domElement);
+
 // Grid size and spacing
 const gridSize = 25;
 const gridSpacing = 1;
@@ -88,9 +94,6 @@ for (let i = -gridSize / 2; i <= gridSize / 2; i++) {
     let verticalLine = new THREE.Line(verticalGeometry, lineMaterial);
     scene.add(verticalLine);
 }
-// Set the camera position to view the grid
-camera.position.set(0, 50, 0); // Position the camera above the grid
-camera.lookAt(0, 0, 0); // Camera looks at the center of the grid
 
 // Render the scene
 renderer.render(scene, camera);
