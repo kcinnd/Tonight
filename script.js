@@ -130,8 +130,8 @@ for (let i = -gridSize / 2; i <= gridSize / 2; i++) {
     scene.add(verticalLine);
 }
 // Set the camera position to view the grid
-camera.position.set(0, 40, 0);
-camera.lookAt(scene.position); // Camera looks at the center of the grid
+camera.position.set(0, 50, 0); // Position the camera above the grid
+camera.lookAt(0, 0, 0); // Camera looks at the center of the grid
 
 // Render the scene
 renderer.render(scene, camera);
