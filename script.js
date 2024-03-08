@@ -2,6 +2,9 @@
 const grid = document.getElementById('grid');
 const word = "tonight";
 let gridArray = Array(20).fill().map(() => Array(20).fill(''));
+particlesJS.load('particles-js', 'particles.json', function() {
+  console.log('particles.js loaded');
+});
 
 // Existing functions for placeWord, fillGrid
 
