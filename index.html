@@ -3,22 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20x20 Grid with Particles Background</title>
+    <title>Tonight</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="particles-js"></div> 
-    
+    <div id="particles-js"></div>
     <div id="grid"></div>
+    <div id="three-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
 
+    <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS.load('particles-js', 'particles.json', function() {
             console.log('particles.js loaded');
         });
     </script>
+
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      let scene = new THREE.Scene();
+      let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      let renderer = new THREE.WebGLRenderer({ alpha: true }); // alpha:true makes the background transparent
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById('three-container').appendChild(renderer.domElement);
+
+      let geometry = new THREE.BoxGeometry();
+      let material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      let cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+
+      camera.position.z = 5;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+
+    <!-- Your custom script for the 20x20 grid -->
     <script src="script.js"></script>
 </body>
 </html>
