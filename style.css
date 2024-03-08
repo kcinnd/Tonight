@@ -1,12 +1,13 @@
 /* style.css */
 body {
-    background-color: #000; /* Black background */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     color: #0af; /* Blue accents */
-    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(-45deg, #000, #012, #005, #000);
+    background-size: 200% 200%;
+    animation: gradientAnimation 15s ease infinite;
 }
 
 #grid {
@@ -33,3 +34,10 @@ body {
     transform: translateZ(50px); /* Enhanced popping effect on hover */
     cursor: pointer;
 }
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
