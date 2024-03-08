@@ -3,23 +3,21 @@ const grid = document.getElementById('grid');
 const word = "tonight";
 let gridArray = Array(20).fill().map(() => Array(20).fill(''));
 
-function placeWord() {
-    // Randomly place the word "tonight" in the grid
-    // Ensure it fits without going out of bounds
-}
-
-function fillGrid() {
-    // Fill the rest of the grid with random letters from "tonight"
-    // Ensure approximately equal distribution and don't overwrite the "tonight" placement
-}
+// Existing functions for placeWord, fillGrid
 
 function renderGrid() {
     grid.innerHTML = '';
-    gridArray.forEach(row => {
-        row.forEach(cell => {
+    gridArray.forEach((row, rowIndex) => {
+        row.forEach((cell, cellIndex) => {
             let cellElement = document.createElement('div');
             cellElement.classList.add('cell');
             cellElement.textContent = cell;
+            cellElement.addEventListener('mouseover', () => {
+                cellElement.style.transform = 'translateZ(60px)';
+            });
+            cellElement.addEventListener('mouseout', () => {
+                cellElement.style.transform = 'translateZ(30px)';
+            });
             grid.appendChild(cellElement);
         });
     });
