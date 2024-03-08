@@ -28,6 +28,7 @@ body {
 #grid {
     position: relative;
     display: grid;
+    align-items: center;
     grid-template-columns: repeat(20, 1fr);
     gap: 5px;
     z-index: 2; /* Ensures grid is above particles and 3D background */
