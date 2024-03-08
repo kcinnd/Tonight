@@ -23,6 +23,57 @@ function placeWord() {
     }
 }
 
+function calculateDistribution() {
+    const totalCells = gridArray.length * gridArray[0].length; // Total number of cells in the grid
+    const letters = "tonigh"; // Excluding 't' as it appears twice in "tonight"
+    const counts = { t: 1, o: 1, n: 1, i: 1, g: 1, h: 1 }; // Start with count 1 for each letter from "tonight"
+
+    // Total letters to distribute (total cells minus the letters in "tonight")
+    const totalLettersToDistribute = totalCells - 7;
+
+    // Distribute the letters approximately equally
+    let remainingLetters = totalLettersToDistribute;
+    while (remainingLetters > 0) {
+        for (let letter of letters) {
+            if (remainingLetters > 0) {
+                counts[letter]++;
+                remainingLetters--;
+            }
+        }
+    }
+
+    // Adjust for the second 't' in "tonight"
+    counts['t'] += Math.floor(totalLettersToDistribute / letters.length);
+
+    return counts;
+}
+
+function fillGrid() {
+    const counts = calculateDistribution();
+    const letters = "tonigh"; // We'll handle 't' separately due to its double occurrence
+
+    gridArray.forEach((row, rowIndex) => {
+        row.forEach((cell, cellIndex) => {
+            if (gridArray[rowIndex][cellIndex] === '') { // Check if the cell is empty
+                let letter = letters[Math.floor(Math.random() * letters.length)];
+                if (letter === 't' && counts['t'] > 0) { // Special handling for 't'
+                    if (Math.random() < 0.5) { // Randomly choose to place 't' to ensure distribution
+                        gridArray[rowIndex][cellIndex] = letter;
+                        counts[letter]--;
+                    } else {
+                        let nonTLetter = letters.replace('t', '')[Math.floor(Math.random() * (letters.length - 1))];
+                        gridArray[rowIndex][cellIndex] = nonTLetter;
+                        counts[nonTLetter]--;
+                    }
+                } else if (counts[letter] > 0) { // Place other letters
+                    gridArray[rowIndex][cellIndex] = letter;
+                    counts[letter]--;
+                }
+            }
+        });
+    });
+}
+
 function renderGrid() {
     grid.innerHTML = '';
     gridArray.forEach((row, rowIndex) => {
