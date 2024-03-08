@@ -96,7 +96,6 @@ placeWord();
 fillGrid();
 renderGrid();
 
-// Three.js setup for 3D grid
 let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000000); // Set the background color to black
 
