@@ -20,6 +20,8 @@ body {
     position: relative;
     display: grid;
     align-items: center;
+    justify-content: center; /* Center grid horizontally */
+    width: fit-content;
     grid-template-columns: repeat(20, 1fr);
     gap: 5px;
     z-index: 2; /* Ensures grid is above particles and 3D background */
@@ -27,8 +29,8 @@ body {
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
