@@ -39,10 +39,9 @@ let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000000); // Set the background color to black
 
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-let renderer = new THREE.WebGLRenderer({ alpha: true }); // Use alpha: true for a transparent background
+let renderer = new THREE.WebGLRenderer({ alpha: true }); // Alpha set to true for a transparent background
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('three-container').appendChild(renderer.domElement);
-
 // Grid size and spacing
 const gridSize = 25;
 const gridSpacing = 1;
@@ -52,19 +51,22 @@ const lineMaterial = new THREE.LineBasicMaterial({ color: 0x808080 }); // Grey c
 
 // Create the grid lines
 for (let i = -gridSize / 2; i <= gridSize / 2; i++) {
-    let horizontalGeometry = new THREE.Geometry();
-    horizontalGeometry.vertices.push(new THREE.Vector3(-gridSize / 2, 0, i * gridSpacing));
-    horizontalGeometry.vertices.push(new THREE.Vector3(gridSize / 2, 0, i * gridSpacing));
+    // Horizontal lines
+    let horizontalGeometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(-gridSize / 2, 0, i * gridSpacing),
+        new THREE.Vector3(gridSize / 2, 0, i * gridSpacing),
+    ]);
     let horizontalLine = new THREE.Line(horizontalGeometry, lineMaterial);
     scene.add(horizontalLine);
 
-    let verticalGeometry = new THREE.Geometry();
-    verticalGeometry.vertices.push(new THREE.Vector3(i * gridSpacing, 0, -gridSize / 2));
-    verticalGeometry.vertices.push(new THREE.Vector3(i * gridSpacing, 0, gridSize / 2));
+    // Vertical lines
+    let verticalGeometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(i * gridSpacing, 0, -gridSize / 2),
+        new THREE.Vector3(i * gridSpacing, 0, gridSize / 2),
+    ]);
     let verticalLine = new THREE.Line(verticalGeometry, lineMaterial);
     scene.add(verticalLine);
 }
-
 // Set the camera position to view the grid
 camera.position.set(0, 40, 0);
 camera.lookAt(scene.position); // Camera looks at the center of the grid
