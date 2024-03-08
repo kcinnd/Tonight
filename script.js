@@ -36,17 +36,19 @@ renderGrid();
 
 // Three.js setup for 3D grid
 let scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000); // Set the background color to black
+
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 let renderer = new THREE.WebGLRenderer({ alpha: true }); // Use alpha: true for a transparent background
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('three-container').appendChild(renderer.domElement); // Append renderer to the three-container div
+document.getElementById('three-container').appendChild(renderer.domElement);
 
 // Grid size and spacing
 const gridSize = 25;
 const gridSpacing = 1;
 
-// Material for the grid lines
-const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+// Material for the grid lines - using grey for the lines
+const lineMaterial = new THREE.LineBasicMaterial({ color: 0x808080 }); // Grey color for the lines
 
 // Create the grid lines
 for (let i = -gridSize / 2; i <= gridSize / 2; i++) {
