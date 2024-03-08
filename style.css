@@ -30,10 +30,8 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 2fr);
     gap: 5px;
-    transform: perspective(600px) rotateX(45deg) rotateZ(-45deg); /* 3D Perspective */
     z-index: 2; /* Ensures grid is above particles and 3D background */
     margin: auto; /* Centers the grid */
-    z-index: 2; /* Ensures grid is above particles and 3D background */
 }
 
 .cell {
