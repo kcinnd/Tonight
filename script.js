@@ -1,4 +1,3 @@
-// script.js
 const grid = document.getElementById('grid');
 const word = "tonight";
 let gridArray = Array(20).fill().map(() => Array(20).fill(''));
