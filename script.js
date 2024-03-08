@@ -10,7 +10,18 @@ document.querySelectorAll('.cell').forEach(cell => {
   cell.addEventListener('mouseover', () => hoverSound.play());
 });
 
-// Existing functions for placeWord, fillGrid
+function placeWord() {
+    const word = "tonight";
+    // Choose a random row for the word to be placed
+    const rowIndex = Math.floor(Math.random() * gridArray.length);
+    // Choose a starting column index ensuring the word fits within the grid
+    const startColIndex = Math.floor(Math.random() * (gridArray[rowIndex].length - word.length));
+
+    // Place each letter of the word into the grid
+    for (let i = 0; i < word.length; i++) {
+        gridArray[rowIndex][startColIndex + i] = word[i];
+    }
+}
 
 function renderGrid() {
     grid.innerHTML = '';
