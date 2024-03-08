@@ -2,73 +2,33 @@ const grid = document.getElementById('grid');
 const word = "tonight";
 let gridArray = Array(20).fill().map(() => Array(20).fill(''));
 particlesJS.load('particles-js', 'particles.json', function() {
-  console.log('particles.js loaded');
+    console.log('particles.js loaded');
 });
 let hoverSound = new Audio('sounds/bloop.mp3');
 
 document.querySelectorAll('.cell').forEach(cell => {
-  cell.addEventListener('mouseover', () => hoverSound.play());
+    cell.addEventListener('mouseover', () => hoverSound.play());
 });
 
 function placeWord() {
     const word = "tonight";
-    // Choose a random row for the word to be placed
     const rowIndex = Math.floor(Math.random() * gridArray.length);
-    // Choose a starting column index ensuring the word fits within the grid
     const startColIndex = Math.floor(Math.random() * (gridArray[rowIndex].length - word.length));
-
-    // Place each letter of the word into the grid
+    
     for (let i = 0; i < word.length; i++) {
-        gridArray[rowIndex][startColIndex + i] = word[i];
+        gridArray[rowIndex][startColIndex + i] = word[i] + '*'; // Marking the cell
     }
-}
-
-function calculateDistribution() {
-    const totalCells = gridArray.length * gridArray[0].length; // Total number of cells in the grid
-    const letters = "tonigh"; // Excluding 't' as it appears twice in "tonight"
-    const counts = { t: 1, o: 1, n: 1, i: 1, g: 1, h: 1 }; // Start with count 1 for each letter from "tonight"
-
-    // Total letters to distribute (total cells minus the letters in "tonight")
-    const totalLettersToDistribute = totalCells - 7;
-
-    // Distribute the letters approximately equally
-    let remainingLetters = totalLettersToDistribute;
-    while (remainingLetters > 0) {
-        for (let letter of letters) {
-            if (remainingLetters > 0) {
-                counts[letter]++;
-                remainingLetters--;
-            }
-        }
-    }
-
-    // Adjust for the second 't' in "tonight"
-    counts['t'] += Math.floor(totalLettersToDistribute / letters.length);
-
-    return counts;
 }
 
 function fillGrid() {
-    const counts = calculateDistribution();
-    const letters = "tonigh"; // We'll handle 't' separately due to its double occurrence
-
+    const letters = "tonigh"; // Unique letters in "tonight" minus one 't'
     gridArray.forEach((row, rowIndex) => {
         row.forEach((cell, cellIndex) => {
-            if (gridArray[rowIndex][cellIndex] === '') { // Check if the cell is empty
-                let letter = letters[Math.floor(Math.random() * letters.length)];
-                if (letter === 't' && counts['t'] > 0) { // Special handling for 't'
-                    if (Math.random() < 0.5) { // Randomly choose to place 't' to ensure distribution
-                        gridArray[rowIndex][cellIndex] = letter;
-                        counts[letter]--;
-                    } else {
-                        let nonTLetter = letters.replace('t', '')[Math.floor(Math.random() * (letters.length - 1))];
-                        gridArray[rowIndex][cellIndex] = nonTLetter;
-                        counts[nonTLetter]--;
-                    }
-                } else if (counts[letter] > 0) { // Place other letters
-                    gridArray[rowIndex][cellIndex] = letter;
-                    counts[letter]--;
-                }
+            if (cell === '') { // If the cell is empty
+                let randomLetter = letters[Math.floor(Math.random() * letters.length)];
+                gridArray[rowIndex][cellIndex] = randomLetter;
+            } else if (cell.endsWith('*')) { // If the cell is part of the correct "tonight"
+                gridArray[rowIndex][cellIndex] = cell[0]; // Remove the mark, leaving only the letter
             }
         });
     });
@@ -80,7 +40,7 @@ function renderGrid() {
         row.forEach((cell, cellIndex) => {
             let cellElement = document.createElement('div');
             cellElement.classList.add('cell');
-            cellElement.textContent = cell;
+            cellElement.textContent = cell.replace('*', ''); // Remove any marks before displaying
             cellElement.addEventListener('mouseover', () => {
                 cellElement.style.transform = 'translateZ(60px)';
             });
