@@ -1,0 +1,35 @@
+/* style.css */
+body {
+    background-color: #000; /* Black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #0af; /* Blue accents */
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(20, 2fr);
+    gap: 5px;
+    transform: perspective(600px) rotateX(45deg) rotateZ(-45deg); /* 3D Perspective */
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111; /* Darker shade for cells */
+    box-shadow: 0 0 10px #0af, inset 0 0 5px #005; /* Glowing effect */
+    border: 1px solid #005; /* Subtle blue border */
+    transform: translateZ(30px); /* 3D popping effect */
+    transition: transform 0.2s ease-in-out;
+}
+
+.cell:hover {
+    transform: translateZ(50px); /* Enhanced popping effect on hover */
+    cursor: pointer;
+}
