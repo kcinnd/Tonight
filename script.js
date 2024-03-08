@@ -5,6 +5,11 @@ let gridArray = Array(20).fill().map(() => Array(20).fill(''));
 particlesJS.load('particles-js', 'particles.json', function() {
   console.log('particles.js loaded');
 });
+let hoverSound = new Audio('hover.mp3');
+
+document.querySelectorAll('.cell').forEach(cell => {
+  cell.addEventListener('mouseover', () => hoverSound.play());
+});
 
 // Existing functions for placeWord, fillGrid
 
